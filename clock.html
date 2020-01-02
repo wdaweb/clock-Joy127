@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <title>Clock</title>
+    <style>
+        body{
+            list-style-type:none;            
+            background-image:url(./star.jpg);            
+            font-family:"Microsoft JhengHei",Arial, Helvetica, sans-serif;  
+            background-size:cover;
+            background-repeat:no-repeat;
+        }
+
+        #clock{
+            width:500px;
+            height:500px;
+            border-radius:50%;
+            background:black;
+            position:relative;
+            margin:50px auto;           
+             /* 水平位移 垂直位移 模糊大小 陰影尺寸 顏色 inset(內陰影) */
+            box-shadow: 0px 0px 10px 15px rgb(3, 238, 247), 0px 0px 10px 10px rgb(223, 4, 252) inset;
+            opacity: 0.5;             
+        }
+
+        #second::after{
+            content:"";
+            display:inline-block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(217, 255, 0, 0.952);
+            top: 50%;
+            transform: rotate(90deg);
+            transform-origin: right center;
+            border-radius: 50%;            
+        } 
+
+
+        #second{
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: rgba(255, 165, 0, 0);
+            top: calc(50% - 2px);
+            transform: rotate(90deg);
+            transform-origin: right center;
+            border-radius: 3px;           
+        } 
+
+        #minute{
+            position:absolute;
+            width:45%;
+            height:8px;
+            left:5%;
+            background:aqua;
+            top:calc(50% - 4px);
+            transform:rotate(90deg);
+            transform-origin:right center;
+            border-radius:10px;           
+        }
+
+        #hour{
+            position:absolute;
+            width:25%;
+            height:16px;
+            left:25%;
+            background: rgb(223, 4, 252);
+            top:calc(50% - 8px);
+            transform:rotate(90deg);
+            transform-origin:right center;
+            border-radius:10px;           
+        }
+
+        .now{
+            font-family: 'Courier New', Courier, monospace;
+            font-size:30px;
+            font-weight:bold ;
+            color:rgba(217, 255, 0, 0.952);
+            text-align:right;
+            opacity: 0.5;                     
+        }
+        
+    </style>
+</head>
+<body>
+    <p class="now"><span id="time"></span></p>
+    <div id="clock">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>         
+    </div>
+    
+    <script>
+        let hour=document.getElementById("hour");
+        let minute=document.getElementById("minute");
+        let second=document.getElementById("second");
+        let time=document.getElementById("time");
+
+        let clock=() => {    
+            let date=new Date();
+            let h=date.getHours();
+            let m=date.getMinutes();
+            let s=date.getSeconds();
+            hour.style.transform=`rotate(${h*30+90}deg)`;
+            minute.style.transform=`rotate(${m*6+90}deg)`;
+            second.style.transform=`rotate(${s*6+90}deg)`;
+            let y=date.getFullYear();
+            let mon=date.getMonth()+1;
+            let d=date.getDate();            
+            console.log(y+"/"+mon+"/"+d+"-"+h+":"+m+":"+s);           
+            time.innerText = y+"/"+mon+"/"+d+"-"+h+":"+m+":"+s;
+            // time.innerText=date.toLocaleString("zh-tw"); 
+        }
+ 
+        clock();
+        setInterval(clock, 1000);        
+
+    </script>
+
+</body>
+</html>
